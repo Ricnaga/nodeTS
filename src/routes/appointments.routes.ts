@@ -1,28 +1,32 @@
+//Uma rota deve receber a requisição, chamar outro arquivo e devolver uma reposta
+
 import {Router} from 'express';
-import { startOfHour, parseISO, isEqual} from 'date-fns'
-import Appointment from '../models/Appointment'
+import { parseISO } from 'date-fns'
+import AppointmentsRepository from '../repositories/AppointmentsRepository'
+import CreateAppointmentsService from '../services/CreateAppointmentService'
 
 const appointmentsRouter = Router();
+const appointmentsRepository = new AppointmentsRepository();
 
-const appointments: Appointment[] = []
+appointmentsRouter.get('/', (request, response) => {
+   const appointments = appointmentsRepository.all()
 
-appointmentsRouter.post('/', (request, response) => {
-    const { provider, date } = request.body
+   return response.json(appointments)
+})
 
-    const parsedDate = startOfHour(parseISO(date))
-    const findAppointmentInSameDate = appointments.find(appointment => 
-        isEqual(parsedDate, appointment.date))
+.post('/', (request, response) => {
+    try{
+        const { provider, date } = request.body
+        const parsedDate = parseISO(date)
 
-        if(findAppointmentInSameDate){
-            return response
-            .status(400)
-            .json({message: "This appointment is already booked"})
-        }
+        const createAppointment = new CreateAppointmentsService(appointmentsRepository)
 
-    const appointment = new Appointment(provider, parsedDate)
+        const appointment = createAppointment.execute({date: parsedDate, provider})
 
-    appointments.push(appointment)
-    return response.json(appointment)
+        return response.json(appointment)
+    }catch(err){
+        return response.status(400).json({error: err.message})
+    }
 })
 
 export default appointmentsRouter
