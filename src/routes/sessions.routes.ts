@@ -1,20 +1,18 @@
 //Uma rota deve receber a requisição, chamar outro arquivo e devolver uma reposta
 import {Router} from 'express';
-import CreateUserService from '../services/CreateUserService';
+import AuthenticateUserService from '../services/AuthenticateUserService';
 
-const usersRouter = Router();
+const sessionsRouter = Router();
 
-usersRouter
+sessionsRouter
 .post('/', async(request, response) => {
     try{
-        const {name, email, password} = request.body
+        const {email, password} = request.body;
+        const authenticateUser = new AuthenticateUserService()
 
-        const createUser = new CreateUserService()
- 
-        const user = await createUser.execute({
-            name,
+        const {user, token} = await authenticateUser.execute({
             email,
-            password,
+            password
         })
 
         const userWithoutPassword = {
@@ -25,10 +23,11 @@ usersRouter
             updated_at: user.update_at,
           };
 
-        return response.json(userWithoutPassword)
+
+        return response.json({userWithoutPassword, token})
     }catch(err){
         return response.status(400).json({error: err.message})
     }
 })
 
-export default usersRouter
+export default sessionsRouter
