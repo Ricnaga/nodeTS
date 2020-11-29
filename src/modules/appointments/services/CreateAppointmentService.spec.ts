@@ -33,7 +33,7 @@ describe('CreateAppointment', () => {
             return new Date(2020, 4, 10, 10).getTime();
           });
       
-          const appointmentDate = new Date(2020, 4, 10, 12);
+          const appointmentDate = new Date(2020, 11, 10, 11);
 
             await createAppointment.execute({
                 date: appointmentDate,
@@ -85,7 +85,7 @@ describe('CreateAppointment', () => {
 
         await expect(
             createAppointment.execute({
-            date: new Date(2020, 4, 10, 7),
+            date: new Date(2020, 4, 11, 7),
             user_id:'user-id',
             provider_id:'provider-id'
         }),
@@ -93,7 +93,7 @@ describe('CreateAppointment', () => {
 
         await expect(
             createAppointment.execute({
-            date: new Date(2020, 4, 10, 18),
+            date: new Date(2020, 4, 11, 18),
             user_id:'user-id',
             provider_id:'provider-id'
         }),
