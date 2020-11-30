@@ -2,6 +2,7 @@ import express, {Request , Response, NextFunction} from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata'
+import 'dotenv/config'
 import { errors } from 'celebrate';
 
 import uploadConfig from '@config/upload'

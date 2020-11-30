@@ -1,6 +1,8 @@
-.vscode
+.vscode/
 node_modules/
 temp/*
+.env
+ormconfig.json
 
 tmp/*
 !tmp/.gitkeep
