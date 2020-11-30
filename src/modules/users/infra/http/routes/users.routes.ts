@@ -1,5 +1,6 @@
 //Uma rota deve receber a requisição, chamar outro arquivo e devolver uma reposta
 import {Router} from 'express';
+import { celebrate, Segments, Joi } from "celebrate";
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
@@ -14,7 +15,14 @@ const usersController = new UsersController()
 const userAvatarController = new UserAvatarController()
 
 usersRouter
-.post('/', usersController.create)
+.post('/', celebrate({
+    [Segments.BODY]:{
+        name:  Joi.string().required(),
+        email:  Joi.string().email().required(),
+        password: Joi.string().required(),
+    }
+}),
+usersController.create)
 
 .patch(
     '/avatar', 
