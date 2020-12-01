@@ -9,5 +9,6 @@ import HandlebarsMailTemplateProvider from './MailTemplateProvider/implementatio
 import './StorageProvider'
 import './MailTemplateProvider'
 import './MailProvider'
+import './CacheProvider'
 
 
