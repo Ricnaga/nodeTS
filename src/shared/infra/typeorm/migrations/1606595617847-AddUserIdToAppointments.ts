@@ -16,13 +16,15 @@ export default class AddUserIdToAppointments1606595617847 implements MigrationIn
         })
         )
 
-        await queryRunner.createForeignKey('appointments', new TableForeignKey({
-            name:'AppointmentUser',
-            columnNames: ['user_id'],
-            referencedTableName: 'users',
-            referencedColumnNames: ['id'],
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
+        await queryRunner.createForeignKey(
+            'appointments', 
+            new TableForeignKey({
+                name:'AppointmentUser',
+                columnNames: ['user_id'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'users',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
         }))
     }
 

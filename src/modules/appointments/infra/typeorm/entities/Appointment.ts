@@ -1,4 +1,5 @@
-import {Entity, 
+import {
+    Entity, 
     Column, 
     PrimaryGeneratedColumn, 
     CreateDateColumn, 

@@ -1,5 +1,4 @@
-import { query } from "express";
-import {MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey} from "typeorm";
+import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from "typeorm";
 
 export default class AlterProviderFiledToProviderId1604524063093 implements MigrationInterface {
 
