@@ -6,7 +6,6 @@ export default class AppointmentsController{
     public async create (request: Request, response: Response):Promise<Response> {
         const user_id = request.user.id
         const { provider_id, date } = request.body
-
         const createAppointment = container.resolve(CreateAppointmentsService)
 
         const appointment = await createAppointment.execute({
@@ -15,6 +14,6 @@ export default class AppointmentsController{
             user_id
         })
 
-        return response.json(appointment)
+        return response.json(appointment)   
     }
 }
